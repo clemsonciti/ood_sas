@@ -38,29 +38,32 @@ until fluxbox -display "${DISPLAY}.0" -rc "<%= session.staged_root.join("fluxbox
 ) &
 
 #
-# Start MatLab
+# Start SAS and Firefox
 #
 
 # Load the required environment
 module load <%= context.modules %>
+module load firefox 
 
 # Output debug information
 module list
 
-# Launch Matlab
+# Launch SAS
 set -x
+firefox &
+
 <%- if gpu -%>
 #module load virtualgl
 #module load intel/16.0.3 virtualgl
   module list
   set -x
 #  icewm
-  vglrun matlab -desktop -nosoftwareopengl
+  vglrun sas -memsize max
 
 <%- else -%>
   module list
   set -x
-  matlab -desktop
+  sas -memsize max
 <%- end -%>
 
 
